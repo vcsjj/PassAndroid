@@ -300,11 +300,10 @@ public class BarCodeIntentIntegrator {
             intentScan.putExtra("SCAN_CAMERA_ID", cameraId);
         }
 
-        String targetAppPackage = findTargetAppPackage(intentScan);
-        if (targetAppPackage == null) {
+        if (intentScan.resolveActivity(activity.getPackageManager()) == null) {
             return showDownloadDialog();
         }
-        intentScan.setPackage(targetAppPackage);
+
         intentScan.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intentScan.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
         attachMoreExtras(intentScan);
